@@ -184,8 +184,19 @@
 }
 
 - (void)showPicker:(NSString *)formatter {
+    
+    self.pickerView.maxDate = [NSDate date];
+    
+    NSDateFormatter* minformatter = [[NSDateFormatter alloc] init];
+    [minformatter setDateFormat:@"yyyy/MM/dd"];
+    
+    NSDate *date = [minformatter dateFromString:@"1900/01/01"];
+    
+    self.pickerView.minDate = date;
+    
     self.pickerView.dateResultFormatterStr = formatter;//设置时间显示格式及内容 nil则显示默认格式"yyyy-MM-dd HH:mm:ss"
     self.pickerView.selDate = self.currentDate;//设置选中时间，默认选中时间为当前时间
+    
     [self.pickerView show];
 }
 
@@ -193,22 +204,5 @@
     self.timeLabel.text = resultStr;
     self.currentDate = resultDate;
 }
-
-
-- (UIView *)df_viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)showView withStr:(NSString *)showData isSelectRow:(BOOL)isSelect {
-    //返回自定义显示view
-    return nil;
-}
-
-- (CGFloat)df_widthForComponent:(NSInteger)component {
-    //返回每列宽
-    return 50;
-}
-
-- (CGFloat)df_rowHeightForComponent:(NSInteger)component {
-    //返回每行高
-    return 30;
-}
-
 
 @end

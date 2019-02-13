@@ -6,6 +6,8 @@
 //  Copyright © 2018年 dufei. All rights reserved.
 //
 
+#define DateBtnWidth 50
+
 #define kMainScreen_width [[UIScreen mainScreen] bounds].size.width
 #define kMainScreen_height [[UIScreen mainScreen] bounds].size.height
 
@@ -262,7 +264,7 @@
             NSInteger num = self.minComp.year%100;
             return 100 - num;
         } else {
-            return self.maxComp.year - self.minComp.year;
+            return self.maxComp.year - self.minComp.year + 1;
         }
     } else if ([str rangeOfString:@"M"].location != NSNotFound) {
         return 12;
@@ -383,6 +385,8 @@
         }
     }
     
+    [self.customPicker reloadAllComponents];
+    
     for (int i = 0; i < self.sumDataArr.count; i++) {
         NSString *str = self.sumDataArr[i];
         if ([str rangeOfString:@"y"].location != NSNotFound) {
@@ -401,8 +405,6 @@
     }
     
     self.selDate = [self returnCompnentDate:self.selComp];
-    
-    [self.customPicker reloadAllComponents];
 }
 
 #pragma mark - Delegate
@@ -669,12 +671,12 @@
         _actionView.backgroundColor = [UIColor whiteColor];
         
         UIButton *cancelBtn = [self createActionBtn];
-        cancelBtn.frame = CGRectMake(0, 0, 50, 40);
+        cancelBtn.frame = CGRectMake(0, 0, DateBtnWidth, 40);
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [cancelBtn addTarget:self action:@selector(df_cancelSelectChoosePicker) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *sureBtn = [self createActionBtn];
-        sureBtn.frame = CGRectMake(kMainScreen_width - 50, 0, 50, 40);
+        sureBtn.frame = CGRectMake(kMainScreen_width - DateBtnWidth, 0, DateBtnWidth, 40);
         [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [sureBtn addTarget:self action:@selector(chooseSelectChoosePicker) forControlEvents:UIControlEventTouchUpInside];
 
